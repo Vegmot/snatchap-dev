@@ -14,6 +14,7 @@ import SendIcon from '@material-ui/icons/Send'
 import { v4 as uuid } from 'uuid'
 import { db, storage } from './firebase'
 import firebase from 'firebase'
+import { selectUser } from './features/appSlice'
 
 import './Preview.css'
 
@@ -21,6 +22,7 @@ const Preview = () => {
   const cameraImage = useSelector(selectCameraImage)
   const history = useHistory()
   const dispatch = useDispatch()
+  const user = useSelector(selectUser)
 
   useEffect(() => {
     if (!cameraImage) {
@@ -53,9 +55,9 @@ const Preview = () => {
           .then(url => {
             db.collection('posts').add({
               imageUrl: url,
-              userName: 'Agamotto',
+              userName: user.userName,
               read: false,
-              // profileUrl
+              profileUrl: user.profileUrl,
               createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             })
             history.replace('/chats')

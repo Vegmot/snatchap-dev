@@ -23,7 +23,7 @@ const Chat = ({ id, userName, createdAt, read, imageUrl, profileUrl }) => {
         { merge: true }
       )
 
-      history.push('/chat/view')
+      history.push('/chats/view')
     }
   }
 
